@@ -1,10 +1,10 @@
 # Css Builder
 
+A ruby interface for creating CSS files; LESS and SASS planned;
+
 ## Installation
 
     gem install css_builder
-
-A ruby interface for creating CSS files; LESS and SASS planned;
 
 ## Usage
 
