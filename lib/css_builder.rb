@@ -9,8 +9,10 @@ class CssBuilder
   end
 
   def comment!(comment)
-    @css << "/* #{comment} */"
+    css! "/* #{comment} */"
     _newline
+    _newline
+    @css
   end
 
   def id!(*args, &block)
@@ -50,6 +52,7 @@ private
     self.instance_eval(&block)
 
     _close
+    _newline
     _newline
   end
 
