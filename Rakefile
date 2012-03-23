@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "css_builder"
   gem.homepage = "http://github.com/jstin/css_builder"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A ruby interface for creating CSS files}
+  gem.description = %Q{A ruby interface for creating CSS files; LESS and SASS planned;}
   gem.email = "jvaneat@iit.edu"
   gem.authors = ["Justin Derrek Van Eaton"]
   # dependencies defined in Gemfile
