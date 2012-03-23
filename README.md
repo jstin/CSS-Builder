@@ -16,7 +16,7 @@ A ruby interface for creating CSS files; LESS and SASS planned;
       background_color "#efefef"
     end
 
-    @css.comment! "This is a magical momment"
+    css.comment! "This is a magical momment"
 
     css.value! # outputs =>
 
