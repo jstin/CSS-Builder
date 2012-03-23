@@ -1,9 +1,14 @@
-# css_builder
+# Css Builder
+
+## Installation
+
+    gem install css_builder
 
 A ruby interface for creating CSS files; LESS and SASS planned;
 
 ## Usage
 
+    require "css_builder"
     css = CssBuilder.new
 
     css.div(:id => "hello", :class => "world") {
