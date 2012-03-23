@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "css_builder"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Derrek Van Eaton"]
@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
     "spec/css_builder_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "http://github.com/jstin/css_builder"
+  s.homepage = "http://github.com/jstin/CSS-builder"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
