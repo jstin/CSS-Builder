@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
     "spec/css_builder_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "http://github.com/jstin/css_builder"
+  s.homepage = "http://github.com/jstin/CSS-builder"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
