@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "css_builder"
-  gem.homepage = "http://github.com/jstin/css_builder"
+  gem.homepage = "http://github.com/jstin/CSS-builder"
   gem.license = "MIT"
   gem.summary = %Q{A ruby interface for creating CSS files}
   gem.description = %Q{A ruby interface for creating CSS files; LESS and SASS planned;}
