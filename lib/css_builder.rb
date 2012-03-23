@@ -95,15 +95,11 @@ private
   end
 
   def _args_hash_values(hash)
+    css! _dasherize hash.delete(:tag) if hash.has_key?(:tag)
+    css! "##{hash.delete(:id)}" if hash.has_key?(:id)
+    css! _class(hash.delete(:class)) if hash.has_key?(:class)
     hash.each do |k,v|
-      case k
-      when :id
-        css! "##{v}"
-      when :class
-        css! _class(v)
-      else
-        css! ":#{_dasherize k}(#{v})"
-      end
+      css! ":#{_dasherize k}(#{v})"
     end
   end
 

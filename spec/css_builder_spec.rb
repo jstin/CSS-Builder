@@ -42,6 +42,11 @@ describe "CssBuilder" do
       @css.value!.should match /^#the-magic\.sauce\s+\.tasty:nth-child\(2\)\s+\{\s+\}/
     end
 
+    it "can create a css ID block tag sub-selector" do
+      @css.id!("the_magic", [:class => "sauce"], [:class => "word", :tag => "div"]) {}
+      @css.value!.should match /^#the-magic\.sauce\s+div\.word\s+\{\s+\}/
+    end
+
   end
 
   describe "Classes" do 
@@ -74,6 +79,11 @@ describe "CssBuilder" do
     it "can create a css class block with a class and a child class with a psuedo selector with params" do
       @css.id!("the_magic", [:class => "sauce"], [:class => "tasty", :nth_child => 2]) {}
       @css.value!.should match /^.the-magic\.sauce\s+\.tasty:nth-child\(2\)\s+\{\s+\}/
+    end
+
+    it "can create a css class block tag sub-selector" do
+      @css.class!("water", [:class => "melon"], [:class => "alls", :tag => "section"]) {}
+      @css.value!.should match /^.water\.melon\s+section\.alls\s+\{\s+\}/
     end
 
   end
@@ -115,6 +125,11 @@ describe "CssBuilder" do
       @css.value!.should match /^a:hover\(\)\s+\{\s+\}/
     end
 
+    it "can create a css tag block tag sub-selectors" do
+      @css.table([], [:tag => "tr"], [:class => "overalls", :tag => "td"]) {}
+      @css.value!.should match /^table\s+tr\s+td\.overalls\s+\{\s+\}/
+    end
+
   end
 
   describe "Blocks" do 
@@ -133,6 +148,13 @@ describe "CssBuilder" do
         border "0px green solid"
       }
       @css.value!.should match /^h1\s+\{\s+color\s+:\s+#438;\s+font-size\s+:\s+10em;\s+border\s+:\s+0px\s+green\s+solid;\s+\}/
+    end
+
+    it "can have css attributes and many selectors" do
+      @css.body([], [:tag => 'p'], [:tag => 'span']) {
+        background_image "url('http://magical.mystery.code.com/placeholder.image')"
+      }
+      @css.value!.should match /^body\s+p\s+span\s+\{\s+background-image\s+:\s+url\('http:\/\/magical.mystery.code.com\/placeholder.image'\);\s+\}/
     end
 
   end

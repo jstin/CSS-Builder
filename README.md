@@ -11,12 +11,26 @@ A ruby interface for creating CSS files; LESS and SASS planned;
       background_color "blue"
     }
 
+    css.table([], [:tag => "tr"], [:tag => "td", :nth_child => "odd"]) do
+      border "1px #345 solid"
+      background_color "#efefef"
+    end
+
+    @css.comment! "This is a magical momment"
+
     css.value! # outputs =>
 
     div#hello.world {
       color : green;
       background-color : blue;
     }
+
+    table tr td:nth-child(odd) {
+      border : 1px #345 solid;
+      background-color : #efefef;
+    }
+
+    /* This is a magical momment */
 
     ###
 
