@@ -6,7 +6,7 @@ A ruby interface for creating CSS files; LESS and SASS planned;
 
     css = CssBuilder.new
 
-    css.div(:id => "hello", :class => "world" {
+    css.div(:id => "hello", :class => "world") {
       color "green"
       background_color "blue"
     }
