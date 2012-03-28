@@ -69,6 +69,20 @@ A ruby interface for creating CSS files; LESS and SASS planned;
       font-family : Sharp;
     }
 
+    ###
+
+    css = CssBuilder.new
+
+    css.div([], [:selector => "~"], [:tag => "span"]) {
+      border "1px"
+    }
+
+    css.value! # outputs =>
+
+    div ~ span {
+      border : 1px;
+    }
+
 ## Contributing to css_builder
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
