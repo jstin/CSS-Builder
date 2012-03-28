@@ -169,4 +169,63 @@ describe "CssBuilder" do
 
   end
 
+  describe "LESS" do 
+
+    it "can create and set variables" do
+      @css.variable!("color", "#4D926F")
+
+      @css.id!("header") {
+        color variable!("color")
+      }
+      @css.value!.should match /^@color\s+:\s+#4D926F;\s+#header\s+\{\s+color\s+:\s+@color;\s+\}/
+    end
+
+    it "can create and use mixins" do
+      @css.mixin!("rounded-corners", ["radius", "5px"]) {
+        border_radius variable!("radius")
+        _webkit_border_radius variable!("radius")
+        _moz_border_radius variable!("radius")
+      }
+
+      @css.id!("header") {
+        mixin! "rounded-corners"
+      }
+
+      @css.id!("footer") {
+        mixin!("rounded-corners", "10px")
+      }
+
+      @css.value!.should match /^\.rounded-corners\s+\(@radius:\s+5px\)\s+{\s+border-radius\s+:\s+@radius;\s+-webkit-border-radius\s+:\s+@radius;\s+-moz-border-radius\s+:\s+@radius;\s+}\s+#header\s+{\s+\.rounded-corners;\s+}\s+#footer\s+{\s+\.rounded-corners\s+\(10px\);\s+}/
+    end
+
+    it "can create and use mixins many params" do
+      @css.mixin!("rounded-corners", ["radius", "5px"], ["color", "red"]) {
+        border_radius variable!("radius")
+      }
+
+      @css.id!("footer") {
+        mixin!("rounded-corners", "10px", "green")
+      }
+
+      @css.value!.should match /^\.rounded-corners\s+\(@radius:\s+5px,\s+@color:\s+red\)\s+{\s+border-radius\s+:\s+@radius;\s+}\s+#footer\s+{\s+\.rounded-corners\s+\(10px,\s+green\);\s+}/
+    end
+
+    it "can create and use mixins no defualt" do
+      @css.mixin!("rounded-corners", ["radius"]) {
+        border_radius variable!("radius")
+      }
+
+      @css.value!.should match /^\.rounded-corners\s+\(@radius\)\s+{\s+border-radius\s+:\s+@radius;\s+}/
+    end
+
+    it "can create and use mixins empty" do
+      @css.mixin!("rounded-corners", []) {
+        border_radius variable!("radius")
+      }
+
+      @css.value!.should match /^\.rounded-corners\s+\(\)\s+{\s+border-radius\s+:\s+@radius;\s+}/
+    end
+
+  end
+
 end

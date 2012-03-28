@@ -119,6 +119,61 @@ The LESS templating language has limited support right now. You can use it in th
       }
     }
 
+Variables
+
+    ###
+
+    css = CssBuilder.new
+
+    @css.variable!("color", "#4D926F")
+
+    @css.id!("header") {
+      color variable!("color")
+    }
+
+    css.value! # outputs =>
+
+    @color: #4D926F;
+
+    #header {
+      color: @color;
+    }
+
+Mixins
+
+    ###
+
+    css = CssBuilder.new
+
+    @css.mixin!("rounded-corners", ["radius", "5px"]) {
+      border_radius variable!("radius")
+      _webkit_border_radius variable!("radius")
+      _moz_border_radius variable!("radius")
+    }
+
+    @css.id!("header") {
+      mixin! "rounded-corners"
+    }
+
+    @css.id!("footer") {
+      mixin!("rounded-corners", "10px")
+    }
+
+    css.value! # outputs =>
+
+    .rounded-corners (@radius: 5px) {
+      border-radius: @radius;
+      -webkit-border-radius: @radius;
+      -moz-border-radius: @radius;
+    }
+
+    #header {
+      .rounded-corners;
+    }
+    #footer {
+      .rounded-corners(10px);
+    }
+
 ## Contributing to css_builder
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.

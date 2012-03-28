@@ -25,6 +25,38 @@ class CssBuilder
     @css
   end
 
+  ## enventaully move all LESS specific stuff to another file
+
+  def variable!(name, value=nil)
+    if value
+      css! "@#{_dasherize name} : #{value};"
+      _newline
+    else
+      return "@#{_dasherize name}"
+    end
+    @css
+  end
+
+  def mixin!(name, *args, &block)
+    css! _class(name)
+    _args_param_values(args)
+    if block
+      _open
+      _newline 
+
+      self.instance_eval(&block)
+
+      _close
+      _newline
+    else
+      css! ";"
+    end
+    _newline
+    @css
+  end
+
+  ## the magic
+
   def method_missing(m, *args, &block)
 
     if block
@@ -109,4 +141,27 @@ private
     end
   end
 
+  ## enventaully move all LESS specific stuff to another file
+
+  def _args_param_values(args)
+    return if args.empty?
+    css! " ("
+
+    len = args.length
+    args.each_with_index do |v, idx|
+      if v.is_a?(Array)
+        case v.length
+        when 0
+        when 1
+          css! "@#{_dasherize v[0]}"
+        else
+          css! "@#{_dasherize v[0]}: #{v[1]}"
+        end
+      else
+        css! v
+      end
+      css! ", " if idx < len - 1
+    end
+    css! ")"
+  end
 end
