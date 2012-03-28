@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "css_builder"
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Derrek Van Eaton"]
-  s.date = "2012-03-23"
+  s.date = "2012-03-28"
   s.description = "A ruby interface for creating CSS files; LESS and SASS planned;"
   s.email = "jvaneat@iit.edu"
   s.extra_rdoc_files = [
