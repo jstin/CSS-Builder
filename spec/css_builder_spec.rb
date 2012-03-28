@@ -53,37 +53,42 @@ describe "CssBuilder" do
 
     it "can create a simple css class block" do
       @css.class!("theMan") {}
-      @css.value!.should match /^.theMan\s+\{\s+\}/
+      @css.value!.should match /^\.theMan\s+\{\s+\}/
     end
 
     it "can create a css class block with an additional class" do
       @css.class!("henry-theGreat", :class => "sauce") {}
-      @css.value!.should match /^.henry-theGreat\.sauce\s+\{\s+\}/
+      @css.value!.should match /^\.henry-theGreat\.sauce\s+\{\s+\}/
     end
 
     it "can create a css class block with an additional classes by spaces" do
       @css.class!(" henry theGreat-is  not so great  ") {}
-      @css.value!.should match /^.henry\.theGreat-is\.not\.so\.great\s+\{\s+\}/
+      @css.value!.should match /^\.henry\.theGreat-is\.not\.so\.great\s+\{\s+\}/
     end
 
     it "can create a css class block with a class and a child ID and class selector" do
       @css.class!("magic", [:class => "sauce"], [:id => "RED", :class => "tasty"]) {}
-      @css.value!.should match /^.magic\.sauce\s+#RED\.tasty\s+\{\s+\}/
+      @css.value!.should match /^\.magic\.sauce\s+#RED\.tasty\s+\{\s+\}/
     end
 
     it "can create a css class block with a class and a child class with a psuedo selector" do
       @css.class!("magic", [:class => "sauce"], [:class => "tasty", :hover => nil]) {}
-      @css.value!.should match /^.magic\.sauce\s+\.tasty:hover\(\)\s+\{\s+\}/
+      @css.value!.should match /^\.magic\.sauce\s+\.tasty:hover\(\)\s+\{\s+\}/
     end
 
     it "can create a css class block with a class and a child class with a psuedo selector with params" do
-      @css.id!("the_magic", [:class => "sauce"], [:class => "tasty", :nth_child => 2]) {}
-      @css.value!.should match /^.the-magic\.sauce\s+\.tasty:nth-child\(2\)\s+\{\s+\}/
+      @css.class!("the_magic", [:class => "sauce"], [:class => "tasty", :nth_child => 2]) {}
+      @css.value!.should match /^\.the-magic\.sauce\s+\.tasty:nth-child\(2\)\s+\{\s+\}/
     end
 
     it "can create a css class block tag sub-selector" do
       @css.class!("water", [:class => "melon"], [:class => "alls", :tag => "section"]) {}
-      @css.value!.should match /^.water\.melon\s+section\.alls\s+\{\s+\}/
+      @css.value!.should match /^\.water\.melon\s+section\.alls\s+\{\s+\}/
+    end
+
+    it "can create a css class block with css3 sub-selectors" do
+      @css.class!("food", [], [:selector => ">"], [:tag => "div"]) {}
+      @css.value!.should match /^\.food\s+>\s+div\s+\{\s+\}/
     end
 
   end
@@ -128,6 +133,11 @@ describe "CssBuilder" do
     it "can create a css tag block tag sub-selectors" do
       @css.table([], [:tag => "tr"], [:class => "overalls", :tag => "td"]) {}
       @css.value!.should match /^table\s+tr\s+td\.overalls\s+\{\s+\}/
+    end
+
+    it "can create a css tag block with css3 sub-selectors" do
+      @css.table([], [:selector => "~"], [:tag => "td"]) {}
+      @css.value!.should match /^table\s+~\s+td\s+\{\s+\}/
     end
 
   end

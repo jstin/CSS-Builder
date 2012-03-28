@@ -98,6 +98,9 @@ private
   end
 
   def _args_hash_values(hash)
+    if hash.has_key?(:selector)
+      css! hash.delete(:selector)
+    end
     css! _dasherize hash.delete(:tag) if hash.has_key?(:tag)
     css! "##{hash.delete(:id)}" if hash.has_key?(:id)
     css! _class(hash.delete(:class)) if hash.has_key?(:class)
