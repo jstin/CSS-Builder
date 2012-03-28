@@ -83,6 +83,42 @@ A ruby interface for creating CSS files; LESS and SASS planned;
       border : 1px;
     }
 
+## LESS support
+
+The LESS templating language has limited support right now. You can use it in the following way.
+
+    ###
+
+    css = CssBuilder.new
+
+    css.div {
+      font_size "1.2em"
+      class!("roger") {
+        color "green"
+      }
+      a {
+        text_decoration "none"
+        self.&(:hover => nil) {
+          color "#333"
+        } 
+      }
+    }
+
+    css.value! # outputs =>
+
+    div {
+      font-size : 1.2em;
+      .roger {
+        color : "green";
+      }
+      a {
+        text-decoration : "none";
+        &:hover() {
+          color : "#333";
+        }
+      }
+    }
+
 ## Contributing to css_builder
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
