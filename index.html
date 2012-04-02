@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Css-builder by jstin</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Css-builder</h1>
+        <h2></h2>
+
+        <section id="downloads">
+          <a href="https://github.com/jstin/CSS-Builder/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/jstin/CSS-Builder/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/jstin/CSS-Builder" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>Css Builder</h1>
+
+<p>A ruby interface for creating CSS files; LESS and SASS planned;</p>
+
+<h2>Installation</h2>
+
+<pre><code>gem install css_builder
+</code></pre>
+
+<h2>Usage</h2>
+
+<pre><code>require "css_builder"
+css = CssBuilder.new
+
+css.div(:id =&gt; "hello", :class =&gt; "world") {
+  color "green"
+  background_color "blue"
+}
+
+css.table([], [:tag =&gt; "tr"], [:tag =&gt; "td", :nth_child =&gt; "odd"]) do
+  border "1px #345 solid"
+  background_color "#efefef"
+end
+
+css.comment! "This is a magical momment"
+
+css.value! # outputs =&gt;
+
+div#hello.world {
+  color : green;
+  background-color : blue;
+}
+
+table tr td:nth-child(odd) {
+  border : 1px #345 solid;
+  background-color : #efefef;
+}
+
+/* This is a magical momment */
+
+###
+
+css = CssBuilder.new
+
+css.class!("astro", [], [:class =&gt; "stars", :nth_child =&gt; 2]) {
+  color "green"
+  background_color "blue"
+}
+
+css.value! # outputs =&gt;
+
+.astro .stars:nth-child(2) {
+  color : green;
+  background-color : blue;
+}
+
+###
+
+css = CssBuilder.new
+
+css.id!("bears", [:class =&gt; "grizzly"], [:class =&gt; "claws", :hover =&gt; nil]) {
+  background_color "red"
+  font_family "Sharp"
+}
+
+css.value! # outputs =&gt;
+
+#bears.grizzly .claws:hover() {
+  background-color : red;
+  font-family : Sharp;
+}
+
+###
+
+css = CssBuilder.new
+
+css.div([], [:selector =&gt; "~"], [:tag =&gt; "span"]) {
+  border "1px"
+}
+
+css.value! # outputs =&gt;
+
+div ~ span {
+  border : 1px;
+}
+</code></pre>
+
+<h2>LESS support</h2>
+
+<p>The LESS templating language has limited support right now. You can use it in the following way.</p>
+
+<pre><code>###
+
+css = CssBuilder.new
+
+css.div {
+  font_size "1.2em"
+  class!("roger") {
+    color "green"
+  }
+  a {
+    text_decoration "none"
+    self.&amp;(:hover =&gt; nil) {
+      color "#333"
+    } 
+  }
+}
+
+css.value! # outputs =&gt;
+
+div {
+  font-size : 1.2em;
+  .roger {
+    color : "green";
+  }
+  a {
+    text-decoration : "none";
+    &amp;:hover() {
+      color : "#333";
+    }
+  }
+}
+</code></pre>
+
+<p>Variables</p>
+
+<pre><code>###
+
+css = CssBuilder.new
+
+@css.variable!("color", "#4D926F")
+
+@css.id!("header") {
+  color variable!("color")
+}
+
+css.value! # outputs =&gt;
+
+@color: #4D926F;
+
+#header {
+  color: @color;
+}
+</code></pre>
+
+<p>Mixins</p>
+
+<pre><code>###
+
+css = CssBuilder.new
+
+@css.mixin!("rounded-corners", ["radius", "5px"]) {
+  border_radius variable!("radius")
+  _webkit_border_radius variable!("radius")
+  _moz_border_radius variable!("radius")
+}
+
+@css.id!("header") {
+  mixin! "rounded-corners"
+}
+
+@css.id!("footer") {
+  mixin!("rounded-corners", "10px")
+}
+
+css.value! # outputs =&gt;
+
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+#header {
+  .rounded-corners;
+}
+#footer {
+  .rounded-corners(10px);
+}
+</code></pre>
+
+<h2>Contributing to css_builder</h2>
+
+<ul>
+<li>Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.</li>
+<li>Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.</li>
+<li>Fork the project.</li>
+<li>Start a feature/bugfix branch.</li>
+<li>Commit and push until you are happy with your contribution.</li>
+<li>Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.</li>
+<li>Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.</li>
+</ul><h2>Copyright</h2>
+
+<p>Copyright (c) 2012 Justin Derrek Van Eaton. See LICENSE.txt for
+further details.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
