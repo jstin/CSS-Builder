@@ -8,80 +8,82 @@ A ruby interface for creating CSS files; LESS and SASS planned;
 
 ## Usage
 
-    require "css_builder"
-    css = CssBuilder.new
+```ruby
+require "css_builder"
+css = CssBuilder.new
 
-    css.div(:id => "hello", :class => "world") {
-      color "green"
-      background_color "blue"
-    }
+css.div(:id => "hello", :class => "world") {
+  color "green"
+  background_color "blue"
+}
 
-    css.table([], [:tag => "tr"], [:tag => "td", :nth_child => "odd"]) do
-      border "1px #345 solid"
-      background_color "#efefef"
-    end
+css.table([], [:tag => "tr"], [:tag => "td", :nth_child => "odd"]) do
+  border "1px #345 solid"
+  background_color "#efefef"
+end
 
-    css.comment! "This is a magical momment"
+css.comment! "This is a magical momment"
 
-    css.value! # outputs =>
+css.value! # outputs =>
 
-    div#hello.world {
-      color : green;
-      background-color : blue;
-    }
+div#hello.world {
+  color : green;
+  background-color : blue;
+}
 
-    table tr td:nth-child(odd) {
-      border : 1px #345 solid;
-      background-color : #efefef;
-    }
+table tr td:nth-child(odd) {
+  border : 1px #345 solid;
+  background-color : #efefef;
+}
 
-    /* This is a magical momment */
+/* This is a magical momment */
 
-    ###
+###
 
-    css = CssBuilder.new
+css = CssBuilder.new
 
-    css.class!("astro", [], [:class => "stars", :nth_child => 2]) {
-      color "green"
-      background_color "blue"
-    }
+css.class!("astro", [], [:class => "stars", :nth_child => 2]) {
+  color "green"
+  background_color "blue"
+}
 
-    css.value! # outputs =>
+css.value! # outputs =>
 
-    .astro .stars:nth-child(2) {
-      color : green;
-      background-color : blue;
-    }
+.astro .stars:nth-child(2) {
+  color : green;
+  background-color : blue;
+}
 
-    ###
+###
 
-    css = CssBuilder.new
+css = CssBuilder.new
 
-    css.id!("bears", [:class => "grizzly"], [:class => "claws", :hover => nil]) {
-      background_color "red"
-      font_family "Sharp"
-    }
+css.id!("bears", [:class => "grizzly"], [:class => "claws", :hover => nil]) {
+  background_color "red"
+  font_family "Sharp"
+}
 
-    css.value! # outputs =>
+css.value! # outputs =>
 
-    #bears.grizzly .claws:hover() {
-      background-color : red;
-      font-family : Sharp;
-    }
+#bears.grizzly .claws:hover() {
+  background-color : red;
+  font-family : Sharp;
+}
 
-    ###
+###
 
-    css = CssBuilder.new
+css = CssBuilder.new
 
-    css.div([], [:selector => "~"], [:tag => "span"]) {
-      border "1px"
-    }
+css.div([], [:selector => "~"], [:tag => "span"]) {
+  border "1px"
+}
 
-    css.value! # outputs =>
+css.value! # outputs =>
 
-    div ~ span {
-      border : 1px;
-    }
+div ~ span {
+  border : 1px;
+}
+```
 
 ## LESS support
 
