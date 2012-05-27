@@ -25,7 +25,8 @@ end
 css.comment! "This is a magical momment"
 
 css.value! # outputs =>
-
+```
+```css
 div#hello.world {
   color : green;
   background-color : blue;
@@ -37,7 +38,8 @@ table tr td:nth-child(odd) {
 }
 
 /* This is a magical momment */
-
+```
+```ruby
 ###
 
 css = CssBuilder.new
@@ -48,12 +50,14 @@ css.class!("astro", [], [:class => "stars", :nth_child => 2]) {
 }
 
 css.value! # outputs =>
-
+```
+```css
 .astro .stars:nth-child(2) {
   color : green;
   background-color : blue;
 }
-
+```
+```ruby
 ###
 
 css = CssBuilder.new
@@ -64,12 +68,14 @@ css.id!("bears", [:class => "grizzly"], [:class => "claws", :hover => nil]) {
 }
 
 css.value! # outputs =>
-
+```
+```css
 #bears.grizzly .claws:hover() {
   background-color : red;
   font-family : Sharp;
 }
-
+```
+```ruby
 ###
 
 css = CssBuilder.new
@@ -79,7 +85,8 @@ css.div([], [:selector => "~"], [:tag => "span"]) {
 }
 
 css.value! # outputs =>
-
+```
+```css
 div ~ span {
   border : 1px;
 }
