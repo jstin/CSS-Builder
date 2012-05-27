@@ -39,9 +39,8 @@ table tr td:nth-child(odd) {
 
 /* This is a magical momment */
 ```
+### Example
 ```ruby
-###
-
 css = CssBuilder.new
 
 css.class!("astro", [], [:class => "stars", :nth_child => 2]) {
@@ -57,9 +56,8 @@ css.value! # outputs =>
   background-color : blue;
 }
 ```
+### Example
 ```ruby
-###
-
 css = CssBuilder.new
 
 css.id!("bears", [:class => "grizzly"], [:class => "claws", :hover => nil]) {
@@ -75,9 +73,8 @@ css.value! # outputs =>
   font-family : Sharp;
 }
 ```
+### Example
 ```ruby
-###
-
 css = CssBuilder.new
 
 css.div([], [:selector => "~"], [:tag => "span"]) {
@@ -95,94 +92,92 @@ div ~ span {
 ## LESS support
 
 The LESS templating language has limited support right now. You can use it in the following way.
+```ruby
+css = CssBuilder.new
 
-    ###
+css.div {
+  font_size "1.2em"
+  class!("roger") {
+    color "green"
+  }
+  a {
+    text_decoration "none"
+    self.&(:hover => nil) {
+      color "#333"
+    } 
+  }
+}
 
-    css = CssBuilder.new
-
-    css.div {
-      font_size "1.2em"
-      class!("roger") {
-        color "green"
-      }
-      a {
-        text_decoration "none"
-        self.&(:hover => nil) {
-          color "#333"
-        } 
-      }
+css.value! # outputs =>
+```
+```css
+div {
+  font-size : 1.2em;
+  .roger {
+    color : "green";
+  }
+  a {
+    text-decoration : "none";
+    &:hover() {
+      color : "#333";
     }
+  }
+}
+```
+### Variables
 
-    css.value! # outputs =>
+```ruby
+css = CssBuilder.new
 
-    div {
-      font-size : 1.2em;
-      .roger {
-        color : "green";
-      }
-      a {
-        text-decoration : "none";
-        &:hover() {
-          color : "#333";
-        }
-      }
-    }
+@css.variable!("color", "#4D926F")
 
-Variables
+@css.id!("header") {
+  color variable!("color")
+}
 
-    ###
+css.value! # outputs =>
+```
+```css
+@color: #4D926F;
 
-    css = CssBuilder.new
+#header {
+  color: @color;
+}
+```
+### Mixins
+```ruby
+css = CssBuilder.new
 
-    @css.variable!("color", "#4D926F")
+@css.mixin!("rounded-corners", ["radius", "5px"]) {
+  border_radius variable!("radius")
+  _webkit_border_radius variable!("radius")
+  _moz_border_radius variable!("radius")
+}
 
-    @css.id!("header") {
-      color variable!("color")
-    }
+@css.id!("header") {
+  mixin! "rounded-corners"
+}
 
-    css.value! # outputs =>
+@css.id!("footer") {
+  mixin!("rounded-corners", "10px")
+}
 
-    @color: #4D926F;
+css.value! # outputs =>
+```
+```css
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
 
-    #header {
-      color: @color;
-    }
-
-Mixins
-
-    ###
-
-    css = CssBuilder.new
-
-    @css.mixin!("rounded-corners", ["radius", "5px"]) {
-      border_radius variable!("radius")
-      _webkit_border_radius variable!("radius")
-      _moz_border_radius variable!("radius")
-    }
-
-    @css.id!("header") {
-      mixin! "rounded-corners"
-    }
-
-    @css.id!("footer") {
-      mixin!("rounded-corners", "10px")
-    }
-
-    css.value! # outputs =>
-
-    .rounded-corners (@radius: 5px) {
-      border-radius: @radius;
-      -webkit-border-radius: @radius;
-      -moz-border-radius: @radius;
-    }
-
-    #header {
-      .rounded-corners;
-    }
-    #footer {
-      .rounded-corners(10px);
-    }
-
+#header {
+  .rounded-corners;
+}
+#footer {
+  .rounded-corners(10px);
+}
+```
 ## Contributing to css_builder
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
